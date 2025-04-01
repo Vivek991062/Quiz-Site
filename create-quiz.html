@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a Quiz</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        h1 { margin-bottom: 20px; }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            background: white;
+            color: #4a00e0;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover { background: #e0e0e0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Create Your Own Quiz</h1>
+        <form id="quizForm">
+            <input type="text" id="quizTitle" placeholder="Enter Quiz Title" required>
+            <div id="questionsContainer">
+                <div class="question-block">
+                    <input type="text" placeholder="Enter Question" class="question" required>
+                    <input type="text" placeholder="Option A" class="option" required>
+                    <input type="text" placeholder="Option B" class="option" required>
+                    <input type="text" placeholder="Option C" class="option" required>
+                    <input type="text" placeholder="Option D" class="option" required>
+                    <select class="correct-answer">
+                        <option value="a">Correct Answer: A</option>
+                        <option value="b">Correct Answer: B</option>
+                        <option value="c">Correct Answer: C</option>
+                        <option value="d">Correct Answer: D</option>
+                    </select>
+                </div>
+            </div>
+            <button type="button" onclick="addQuestion()">Add Another Question</button>
+            <button type="submit">Save Quiz</button>
+        </form>
+    </div>
+
+    <script>
+        function addQuestion() {
+            let container = document.getElementById("questionsContainer");
+            let questionBlock = document.createElement("div");
+            questionBlock.className = "question-block";
+            questionBlock.innerHTML = `
+                <input type="text" placeholder="Enter Question" class="question" required>
+                <input type="text" placeholder="Option A" class="option" required>
+                <input type="text" placeholder="Option B" class="option" required>
+                <input type="text" placeholder="Option C" class="option" required>
+                <input type="text" placeholder="Option D" class="option" required>
+                <select class="correct-answer">
+                    <option value="a">Correct Answer: A</option>
+                    <option value="b">Correct Answer: B</option>
+                    <option value="c">Correct Answer: C</option>
+                    <option value="d">Correct Answer: D</option>
+                </select>
+            `;
+            container.appendChild(questionBlock);
+        }
+
+        document.getElementById("quizForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let title = document.getElementById("quizTitle").value;
+            let questions = document.querySelectorAll(".question");
+            let options = document.querySelectorAll(".option");
+            let correctAnswers = document.querySelectorAll(".correct-answer");
+
+            let quizData = { title: title, questions: [] };
+            for (let i = 0; i < questions.length; i++) {
+                quizData.questions.push({
+                    question: questions[i].value,
+                    options: [
+                        options[i * 4].value,
+                        options[i * 4 + 1].value,
+                        options[i * 4 + 2].value,
+                        options[i * 4 + 3].value
+                    ],
+                    answer: correctAnswers[i].value
+                });
+            }
+
+            let customQuizzes = JSON.parse(localStorage.getItem("customQuizzes")) || [];
+            customQuizzes.push(quizData);
+            localStorage.setItem("customQuizzes", JSON.stringify(customQuizzes));
+
+            alert("Quiz saved successfully!");
+            window.location.href = "topic.html";
+        });
+    </script>
+</body>
+</html>

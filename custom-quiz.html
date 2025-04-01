@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Custom Quiz</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            width: 90%;
+            max-width: 700px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        h1 { margin-bottom: 20px; }
+        .question-box { margin: 20px 0; font-size: 1.2rem; }
+        .options { display: flex; flex-direction: column; gap: 10px; }
+        button {
+            background: white;
+            color: #4a00e0;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover { background: #e0e0e0; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="quiz-title">Quiz</h1>
+        <div id="quiz-container">
+            <div class="question-box">
+                <p id="question-text"></p>
+            </div>
+            <div class="options">
+                <button class="option-btn" onclick="selectAnswer(0)"></button>
+                <button class="option-btn" onclick="selectAnswer(1)"></button>
+                <button class="option-btn" onclick="selectAnswer(2)"></button>
+                <button class="option-btn" onclick="selectAnswer(3)"></button>
+            </div>
+        </div>
+        <button id="next-btn" onclick="nextQuestion()" class="hidden">Next</button>
+        <div id="result" class="hidden">
+            <h2>Quiz Completed!</h2>
+            <p id="score-text"></p>
+            <button onclick="window.location.href='topic.html'">Back to Topics</button>
+        </div>
+    </div>
+
+    <script>
+        let quizData;
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function getQuizData() {
+            let urlParams = new URLSearchParams(window.location.search);
+            let quizIndex = urlParams.get("quiz");
+            let customQuizzes = JSON.parse(localStorage.getItem("customQuizzes")) || [];
+            
+            if (quizIndex === null || quizIndex >= customQuizzes.length) {
+                alert("Quiz not found!");
+                window.location.href = "topic.html";
+                return;
+            }
+
+            quizData = customQuizzes[quizIndex];
+            document.getElementById("quiz-title").innerText = quizData.title;
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (currentQuestionIndex >= quizData.questions.length) {
+                document.getElementById("quiz-container").classList.add("hidden");
+                document.getElementById("result").classList.remove("hidden");
+                document.getElementById("score-text").innerText = `You scored ${score} out of ${quizData.questions.length}!`;
+                return;
+            }
+
+            let questionData = quizData.questions[currentQuestionIndex];
+            document.getElementById("question-text").innerText = questionData.question;
+            let buttons = document.querySelectorAll(".option-btn");
+
+            buttons.forEach((btn, index) => {
+                btn.innerText = questionData.options[index];
+                btn.style.background = "white";
+                btn.onclick = () => selectAnswer(index);
+            });
+
+            document.getElementById("next-btn").classList.add("hidden");
+        }
+
+        function selectAnswer(selectedIndex) {
+            let questionData = quizData.questions[currentQuestionIndex];
+            let correctIndex = ["a", "b", "c", "d"].indexOf(questionData.answer);
+            let buttons = document.querySelectorAll(".option-btn");
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                buttons[selectedIndex].style.background = "green";
+            } else {
+                buttons[selectedIndex].style.background = "red";
+                buttons[correctIndex].style.background = "green";
+            }
+
+            document.getElementById("next-btn").classList.remove("hidden");
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            showQuestion();
+        }
+
+        window.onload = getQuizData;
+    </script>
+</body>
+</html>

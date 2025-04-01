@@ -1,0 +1,249 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif; /* Modern font */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Header */
+header {
+    background-color: #13274F;
+    color: white;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px solid white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo h1 {
+    font-size: 36px;
+    margin: 0;
+    font-weight: bold;
+}
+
+/* Header Buttons */
+.header-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.header-buttons button {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.header-buttons button:hover {
+    background: white;
+    color: #13274F;
+}
+
+/* Hero Section */
+.hero {
+    background-image: url('https://t4.ftcdn.net/jpg/04/39/13/37/240_F_439133763_FrLdhZsd5aGC23r9ATARuKJBr8ifZjIe.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    padding: 40px;
+    color: white;
+}
+
+.hero h2 {
+    font-size: 48px;
+    font-weight: bold;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+.hero button {
+    padding: 12px 24px;
+    font-size: 20px;
+    background: linear-gradient(45deg, #2196F3, #4CAF50);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Features Section */
+.features {
+    padding: 60px 20px;
+    background-color: white;
+    text-align: center;
+}
+
+.features h2 {
+    font-size: 32px;
+    color: #13274F;
+    margin-bottom: 30px;
+}
+
+.feature-item {
+    display: inline-block;
+    width: 30%;
+    margin: 20px;
+    padding: 20px;
+    background: #f4f4f4;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.feature-item h3 {
+    color: #2196F3;
+    font-size: 24px;
+}
+
+.feature-item p {
+    color: #555;
+    font-size: 16px;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    width: 350px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Authentication Form */
+.auth-form input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.auth-form button {
+    width: 100%;
+    padding: 12px;
+    background: #13274F;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.3s ease-in-out;
+}
+
+.auth-form button:hover {
+    background: green;
+}
+
+/* Sign-in and Sign-up Links */
+.auth-form span {
+    color: #13274F;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.auth-form span:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    display: inline;
+    margin: 0 15px;
+}
+
+.footer-links li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.footer-links li a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero {
+        text-align: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .hero h2 {
+        font-size: 32px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .feature-item {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+}
